@@ -1,4 +1,4 @@
-export default function Gamesquare({ position, updateBoard, board, value }) {
+export default function Gamesquare({ position, runTurn, board, value }) {
 
     const row5 = position + (7 * 5)
     const row4 = position + (7 * 4)
@@ -10,28 +10,28 @@ export default function Gamesquare({ position, updateBoard, board, value }) {
     //this only works if we click on the top row
     function handleClick() {
         if (!board[row5].value) {
-            return updateBoard(row5)
+            return runTurn(row5)
         }
         if (!board[row4].value) {
-            return updateBoard(row4)
+            return runTurn(row4)
         }
         if (!board[row3].value) {
-            return updateBoard(row3)
+            return runTurn(row3)
         }
         if (!board[row2].value) {
-            return updateBoard(row2)
+            return runTurn(row2)
         }
         if (!board[row1].value) {
-            return updateBoard(row1)
+            return runTurn(row1)
         }
         if (!board[row0].value) {
-            return updateBoard(row0)
+            return runTurn(row0)
         }
-        setPop(!pop)
     }
 
     return (
         <div className="gamesquare" onClick={handleClick}>
+            {position} <br />
             {value}
         </div>
     )

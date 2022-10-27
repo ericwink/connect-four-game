@@ -3,10 +3,21 @@ import { useState } from 'react'
 import Gamesquare from './components/Gamesquare'
 import gameboard from '../public/images/board-layer-white-large.svg'
 import { gamespots } from './utilities/gamespots'
+import { checkDown, checkHorizontal, checkForwardSlash, checkBackSlash } from './utilities/checkWinner'
 
 function App() {
   const [turn, setTurn] = useState('player1')
   const [board, setBoard] = useState(gamespots)
+
+
+  async function runTurn(spot) {
+    const newBoard = await updateBoard(spot)
+    checkDown(newBoard, spot)
+    checkHorizontal(newBoard, spot)
+    checkForwardSlash(newBoard, spot)
+    checkBackSlash(newBoard, spot)
+    updateTurn()
+  }
 
   function updateTurn() {
     turn === 'player1' ? setTurn('player2') : setTurn('player1')
@@ -22,7 +33,12 @@ function App() {
       return each
     })
     setBoard(newBoard)
-    updateTurn()
+    return newBoard
+  }
+
+  function resetGame() {
+    setBoard(gamespots)
+    setTurn('player1')
   }
 
   return (
@@ -36,12 +52,12 @@ function App() {
               position={each.position}
               value={each.value}
               board={board}
-              updateBoard={updateBoard}
+              runTurn={runTurn}
             />
           )
         })}
       </div>
-      <button onClick={() => console.log(board)} >Show Board Data</button>
+      <button onClick={resetGame} >Reset Game</button>
 
     </div>
   )
