@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Gamesquare from './components/Gamesquare'
 import gameboard from '../public/images/board-layer-white-large.svg'
 import { gamespots } from './utilities/gamespots'
-import { checkDown, checkHorizontal, checkForwardSlash, checkBackSlash } from './utilities/checkWinner'
+import { checkWinner } from './utilities/checkWinner'
 
 function App() {
   const [turn, setTurn] = useState('player1')
@@ -12,10 +12,7 @@ function App() {
 
   async function runTurn(spot) {
     const newBoard = await updateBoard(spot)
-    checkDown(newBoard, spot)
-    checkHorizontal(newBoard, spot)
-    checkForwardSlash(newBoard, spot)
-    checkBackSlash(newBoard, spot)
+    checkWinner(newBoard, spot)
     updateTurn()
   }
 
