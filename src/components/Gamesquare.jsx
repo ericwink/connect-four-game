@@ -1,4 +1,7 @@
+import { gsap } from 'gsap'
+
 export default function Gamesquare({ info, runTurn, board }) {
+
 
     const row5 = info.position + (7 * 5)
     const row4 = info.position + (7 * 4)
@@ -30,11 +33,12 @@ export default function Gamesquare({ info, runTurn, board }) {
     }
 
     return (
-        <div onClick={handleClick} className={!info.value ? 'gamesquare' : info.value === 'player1' ? 'gamesquare red' : 'gamesquare yellow'}>
+        <div onClick={handleClick} className='gamesquare'>
             {/* {info.position} <br />
             {info.value}
              */}
-            {info.winner ? <p>'WIN'</p> : null}
+            {info.value ? <div className={`testpiece_${info.position} gamesquare ${info.value}`} ></div> : null}
+
         </div>
     )
 }

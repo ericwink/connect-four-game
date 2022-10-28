@@ -1,18 +1,30 @@
 import './App.css'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Gamesquare from './components/Gamesquare'
-import gameboard from '../public/images/board-layer-white-large.svg'
+import gameboardBlack from '../public/images/board-layer-black-large.svg'
+import gameboardWhite from '../public/images/board-layer-white-large.svg'
 import { gamespots } from './utilities/gamespots'
 import { checkWinner } from './utilities/checkWinner'
+import { gsap } from 'gsap'
 
 function App() {
   const [turn, setTurn] = useState('player1')
   const [board, setBoard] = useState(gamespots)
   const [winner, setWinner] = useState(false)
 
+  function animate(whatever) {
+    let dropAnimation = gsap.fromTo(`.testpiece_${whatever}`,
+      { y: -500 },
+      {
+        y: 0,
+        duration: 1,
+        ease: 'bounce'
+      })
+  }
 
   async function runTurn(spot) {
     const newBoard = await updateBoard(spot)
+    animate(spot)
     const winnerInfo = checkWinner(newBoard, spot)
     if (winnerInfo[0]) {
       setWinner(true)
@@ -61,7 +73,8 @@ function App() {
   return (
     <div className="App">
       {winner ? <h1>WINNER</h1> : null}
-      <img src={gameboard} alt="gameboard" className='gameboard' />
+      <img src={gameboardBlack} alt="gameboard" className='gameboardBlack' />
+      <img src={gameboardWhite} alt="gameboard" className='gameboardWhite' />
       <div className="gameboard-underlay">
         {board.map((each, index) => {
           return (

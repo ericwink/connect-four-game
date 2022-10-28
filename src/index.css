@@ -82,7 +82,7 @@ button:focus-visible {
 .gameboard-underlay {
   width: 632px;
   height: 591px;
-  border: 1px solid green;
+  /* border: 1px solid green; */
   position: relative;
   z-index: 1;
   display: grid;
@@ -92,17 +92,24 @@ button:focus-visible {
   gap: 15px;
 }
 
-.gameboard {
+.gameboardBlack {
   position: absolute;
   z-index: -1;
   left: 50%;
   transform: translateX(-50%);
 }
+.gameboardWhite {
+  position: absolute;
+  z-index: 999;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
 
-.red {
+.player1 {
   background-color: red;
 }
 
-.yellow {
+.player2 {
   background-color: blue;
 }
