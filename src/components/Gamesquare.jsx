@@ -1,11 +1,11 @@
-export default function Gamesquare({ position, runTurn, board, value }) {
+export default function Gamesquare({ info, runTurn, board }) {
 
-    const row5 = position + (7 * 5)
-    const row4 = position + (7 * 4)
-    const row3 = position + (7 * 3)
-    const row2 = position + (7 * 2)
-    const row1 = position + (7 * 1)
-    const row0 = position
+    const row5 = info.position + (7 * 5)
+    const row4 = info.position + (7 * 4)
+    const row3 = info.position + (7 * 3)
+    const row2 = info.position + (7 * 2)
+    const row1 = info.position + (7 * 1)
+    const row0 = info.position
 
     //this only works if we click on the top row
     function handleClick() {
@@ -30,9 +30,11 @@ export default function Gamesquare({ position, runTurn, board, value }) {
     }
 
     return (
-        <div className="gamesquare" onClick={handleClick}>
-            {position} <br />
-            {value}
+        <div onClick={handleClick} className={!info.value ? 'gamesquare' : info.value === 'player1' ? 'gamesquare red' : 'gamesquare yellow'}>
+            {/* {info.position} <br />
+            {info.value}
+             */}
+            {info.winner ? <p>'WIN'</p> : null}
         </div>
     )
 }

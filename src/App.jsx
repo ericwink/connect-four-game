@@ -8,16 +8,35 @@ import { checkWinner } from './utilities/checkWinner'
 function App() {
   const [turn, setTurn] = useState('player1')
   const [board, setBoard] = useState(gamespots)
+  const [winner, setWinner] = useState(false)
 
 
   async function runTurn(spot) {
     const newBoard = await updateBoard(spot)
-    checkWinner(newBoard, spot)
+    const winnerInfo = checkWinner(newBoard, spot)
+    if (winnerInfo[0]) {
+      setWinner(true)
+      highlightWin(newBoard, winnerInfo[1])
+      console.log(winnerInfo[1])
+    }
     updateTurn()
   }
 
   function updateTurn() {
     turn === 'player1' ? setTurn('player2') : setTurn('player1')
+  }
+
+  function highlightWin(board, spots) {
+    const winBoard = board.map(each => {
+      //for each position, check if it is in the winning array
+      //if true, add a WINNER attribute
+      if (spots.includes(each.position)) {
+        return { ...each, winner: true }
+      }
+      //otherwise, return the info unchanged
+      return each
+    })
+    setBoard(winBoard)
   }
 
   function updateBoard(spot) {
@@ -36,18 +55,19 @@ function App() {
   function resetGame() {
     setBoard(gamespots)
     setTurn('player1')
+    setWinner(false)
   }
 
   return (
     <div className="App">
+      {winner ? <h1>WINNER</h1> : null}
       <img src={gameboard} alt="gameboard" className='gameboard' />
       <div className="gameboard-underlay">
         {board.map((each, index) => {
           return (
             <Gamesquare
               key={index}
-              position={each.position}
-              value={each.value}
+              info={each}
               board={board}
               runTurn={runTurn}
             />
@@ -55,6 +75,7 @@ function App() {
         })}
       </div>
       <button onClick={resetGame} >Reset Game</button>
+      <button onClick={() => console.log(board)} >Show Board Info</button>
 
     </div>
   )

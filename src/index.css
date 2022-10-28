@@ -97,5 +97,12 @@ button:focus-visible {
   z-index: -1;
   left: 50%;
   transform: translateX(-50%);
-  /* display: none; */
+}
+
+.red {
+  background-color: red;
+}
+
+.yellow {
+  background-color: blue;
 }
