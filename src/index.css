@@ -79,6 +79,13 @@ button:focus-visible {
   justify-content: center;
 }
 
+.win {
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  border: 4px solid white;
+}
+
 .gameboard-underlay {
   width: 632px;
   height: 591px;

@@ -12,8 +12,9 @@ function App() {
   const [board, setBoard] = useState(gamespots)
   const [winner, setWinner] = useState(false)
 
-  function animate(whatever) {
-    let dropAnimation = gsap.fromTo(`.testpiece_${whatever}`,
+  // gsap animations
+  function animate(location) {
+    gsap.fromTo(`.testpiece_${location}`,
       { y: -500 },
       {
         y: 0,
@@ -22,14 +23,23 @@ function App() {
       })
   }
 
+  function flashWin() {
+    gsap.from('.win', {
+      opacity: 0,
+      duration: 1,
+      yoyo: true,
+      repeat: -1
+    })
+  }
+
   async function runTurn(spot) {
     const newBoard = await updateBoard(spot)
     animate(spot)
     const winnerInfo = checkWinner(newBoard, spot)
     if (winnerInfo[0]) {
       setWinner(true)
-      highlightWin(newBoard, winnerInfo[1])
-      console.log(winnerInfo[1])
+      await highlightWin(newBoard, winnerInfo[1])
+      flashWin()
     }
     updateTurn()
   }
@@ -49,6 +59,7 @@ function App() {
       return each
     })
     setBoard(winBoard)
+    return true
   }
 
   function updateBoard(spot) {
