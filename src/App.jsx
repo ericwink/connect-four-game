@@ -3,9 +3,8 @@ import GameBoard from './components/gameboard/GameBoard'
 import { gamespots } from './utilities/gamespots'
 import { checkWinner } from './utilities/checkWinner'
 import { animate, flashWin, flashTop } from './utilities/animations'
-import PVP_Button from './components/buttons/pvpButton'
-import Quit_Button from './components/buttons/QuitButton'
-import Options_Button from './components/buttons/OptionsButton'
+import Score from './components/indicators/Score'
+import logo from './images/logo.svg'
 
 function App() {
   const [turn, setTurn] = useState('player1')
@@ -66,12 +65,14 @@ function App() {
 
   return (
     <div className="app">
-      {/* <Options_Button options='Game Rules' />
-      <PVP_Button />
-      <Quit_Button /> */}
+      <div id="menu-buttons">
+        <button className='btn-sm heading-xs'>Menu</button>
+        <img src={logo} alt="connect four logo" />
+        <button className='btn-sm heading-xs' onClick={resetGame} >Reset Game</button>
+      </div>
+      <Score score='55' player='Player 1' />
+      <Score score='43' player='Player 2' />
       <GameBoard board={board} runTurn={runTurn} />
-      <button onClick={resetGame} >Reset Game</button>
-      <button onClick={() => console.log(board)} >Show Board Info</button>
     </div>
   )
 }

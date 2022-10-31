@@ -26,9 +26,9 @@ export default function GameBoard({ board, runTurn }) {
     }, [])
 
     return (
-        <div className="gameboard">
-            <img src={windowSize >= 750 ? gameboardBlack : gameboardBlackSm} alt="gameboard" className='gameboardBlack' />
-            <img src={windowSize >= 750 ? gameboardWhite : gameboardWhiteSm} alt="gameboard" className='gameboardWhite' />
+        <div id="gameboard">
+            <img src={windowSize >= 680 ? gameboardBlack : gameboardBlackSm} alt="gameboard" className='gameboardBlack' />
+            <img src={windowSize >= 680 ? gameboardWhite : gameboardWhiteSm} alt="gameboard" className='gameboardWhite' />
             <div className="gameboard-underlay">
                 {board.map((each, index) => {
                     return (
