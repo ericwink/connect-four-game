@@ -1,82 +1,200 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap");
+
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
+  /* colors */
+  --clr-black: #000;
+  --clr-dark-purple: #5c2dd5;
+  --clr-pale-purple: #7945ff;
+  --clr-pink: #fd6687;
+  --clr-yellow: #ffce67;
+  --clr-white: #fff;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* font family/weight */
+  --ff-body: "Space Grotesk", sans-serif;
+  --fw-bold: "bold";
+  --fw-medium: "medium";
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  /* font sizes */
+  --fs-400: 1rem; /*16px*/
+  --fs-500: 1.25rem; /*20px*/
+  --fs-600: 1.5rem; /*24px*/
+  --fs-900: 3.5rem; /*56*/
+
+  /* line heights */
+  --lh-400: 1.313rem; /*21px*/
+  --lh-500: 1.625rem; /*26px*/
+  --lh-600: 1.938rem; /*31px*/
+  --lh-900: 4.438rem; /*71px*/
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-body {
+/* Remove default margin */
+* {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  padding: 0;
+  font: inherit;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
   min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  font: var(--ff-body);
+  font-weight: var(--fw-bold);
+  /* line-height: 1.5; */
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-.gamesquare {
-  border: 1px solid white;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+/* utility classes */
+
+.heading-lg {
+  font-size: var(--fs-900);
+  line-height: var(--lh-900);
+}
+.heading-m {
+  font-size: var(--fs-600);
+  line-height: var(--lh-600);
+}
+.heading-sm {
+  font-size: var(--fs-500);
+  line-height: var(--lh-500);
+}
+.heading-xs {
+  font-size: var(--fs-400);
+  line-height: var(--lh-400);
+}
+.body {
+  font-size: var(--fs-400);
+  line-height: var(--lh-400);
+  font-weight: var(--fw-medium);
+}
+
+.btn {
+  border-radius: 20px;
+  border: 3px solid var(--clr-black);
+  box-shadow: 0px 10px 0px var(--clr-black);
+  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.btn-lg {
+  width: 335px;
+  height: 72px;
+}
+
+.btn-m {
+  width: 295px;
+  height: 72px;
+}
+
+.btn-sm {
+  width: 108px;
+  height: 39px;
+  background-color: var(--clr-dark-purple);
+  color: var(--clr-white);
+}
+
+@media (hover) {
+  .btn:hover {
+    box-shadow: 0px 10px 0px var(--clr-dark-purple);
+  }
+}
+
+@media (min-width: 750) {
+  .btn-lg {
+    width: 400px;
+    height: 72px;
+  }
+
+  .btn-m {
+    width: 400px;
+    height: 72px;
+    box-shadow: 0px 10px 0px var(--clr-black);
+  }
+
+  .btn-sm {
+    width: 86px;
+    height: 39px;
+  }
+}
+
+.pvp {
+  background-color: var(--clr-yellow);
+  color: var(--clr-black);
+  justify-content: space-between;
+}
+
+.quit {
+  background-color: var(--clr-pink);
+  color: var(--clr-white);
+}
+
+.options {
+  background-color: var(--clr-white);
+  color: var(--clr-black);
+}
+
+/* basic styles */
+
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .win {
@@ -86,17 +204,47 @@ button:focus-visible {
   border: 4px solid white;
 }
 
+.player1 {
+  background-color: var(--clr-pink);
+  box-shadow: inset 1px 6px 3px 1px rgba(0, 0, 0, 0.5);
+}
+
+.player2 {
+  background-color: var(--clr-yellow);
+  box-shadow: inset 1px 6px 3px 1px rgba(0, 0, 0, 0.5);
+}
+
+.top {
+  background-color: none;
+  opacity: 0;
+  box-shadow: inset 1px 6px 3px 1px rgba(0, 0, 0, 0.5);
+}
+
+.gameboard {
+  width: 335px;
+  height: 310px;
+  position: relative;
+}
+
 .gameboard-underlay {
-  width: 632px;
-  height: 591px;
-  /* border: 1px solid green; */
   position: relative;
   z-index: 1;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  padding: 15px 15px 60px 15px;
-  box-sizing: border-box;
-  gap: 15px;
+  gap: 5px;
+  row-gap: 6px;
+  padding-top: 0.4em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.gamesquare {
+  height: 41px;
+  width: 41px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gameboardBlack {
@@ -113,10 +261,33 @@ button:focus-visible {
   pointer-events: none;
 }
 
-.player1 {
-  background-color: red;
-}
+@media (min-width: 750px) {
+  .gameboard {
+    width: 632px;
+    height: 584px;
+  }
 
-.player2 {
-  background-color: blue;
+  .gameboard-underlay {
+    gap: 15px;
+    padding-top: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  .gamesquare {
+    height: 73px;
+    width: 73px;
+  }
+
+  .player1 {
+    box-shadow: inset 1px 9px 3px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  .player2 {
+    box-shadow: inset 1px 9px 3px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  .top {
+    box-shadow: inset 1px 9px 3px 1px rgba(0, 0, 0, 0.5);
+  }
 }

@@ -30,7 +30,7 @@ export default function Gamesquare({ info, runTurn, board }) {
     }
 
     return (
-        <div onClick={handleClick} className='gamesquare'>
+        <div onClick={handleClick} className={info.position < 7 ? 'gamesquare top' : 'gamesquare'}>
             {/* {info.position} <br />
             {info.value}
              */}

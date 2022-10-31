@@ -2,12 +2,13 @@
 function checkNext(board, position, direction) {
     let counter = 1
     let current = position
-    let next = board[position][direction]
+    let next = board[current][direction]
+    let check = board[current].value
     let fourInARow = [current]
     for (let i = 1; i < 4; i++) {
-        //if current value is not null, and there is still a down to check against
-        if (board[current].value && board[current][direction])
-            if (board[current].value === board[next].value) {
+        //if current value is not null, and there is still a next position to check against
+        if (board[current].value && next)
+            if (board[next].value === check) {
                 counter++
                 //if matching, push the position onto the array to track winning selection
                 fourInARow.push(next)

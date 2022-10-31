@@ -1,38 +1,20 @@
-import './App.css'
-import { useState, useRef } from 'react'
-import Gamesquare from './components/Gamesquare'
-import gameboardBlack from '../public/images/board-layer-black-large.svg'
-import gameboardWhite from '../public/images/board-layer-white-large.svg'
+import { useState } from 'react'
+import GameBoard from './components/gameboard/GameBoard'
 import { gamespots } from './utilities/gamespots'
 import { checkWinner } from './utilities/checkWinner'
-import { gsap } from 'gsap'
+import { animate, flashWin, flashTop } from './utilities/animations'
+import PVP_Button from './components/buttons/pvpButton'
+import Quit_Button from './components/buttons/QuitButton'
+import Options_Button from './components/buttons/OptionsButton'
 
 function App() {
   const [turn, setTurn] = useState('player1')
   const [board, setBoard] = useState(gamespots)
   const [winner, setWinner] = useState(false)
 
-  // gsap animations
-  function animate(location) {
-    gsap.fromTo(`.testpiece_${location}`,
-      { y: -500 },
-      {
-        y: 0,
-        duration: 1,
-        ease: 'bounce'
-      })
-  }
-
-  function flashWin() {
-    gsap.from('.win', {
-      opacity: 0,
-      duration: 1,
-      yoyo: true,
-      repeat: -1
-    })
-  }
 
   async function runTurn(spot) {
+    if (winner) return
     const newBoard = await updateBoard(spot)
     animate(spot)
     const winnerInfo = checkWinner(newBoard, spot)
@@ -79,30 +61,20 @@ function App() {
     setBoard(gamespots)
     setTurn('player1')
     setWinner(false)
+    flashTop()
   }
 
   return (
-    <div className="App">
-      {winner ? <h1>WINNER</h1> : null}
-      <img src={gameboardBlack} alt="gameboard" className='gameboardBlack' />
-      <img src={gameboardWhite} alt="gameboard" className='gameboardWhite' />
-      <div className="gameboard-underlay">
-        {board.map((each, index) => {
-          return (
-            <Gamesquare
-              key={index}
-              info={each}
-              board={board}
-              runTurn={runTurn}
-            />
-          )
-        })}
-      </div>
+    <div className="app">
+      {/* <Options_Button options='Game Rules' />
+      <PVP_Button />
+      <Quit_Button /> */}
+      <GameBoard board={board} runTurn={runTurn} />
       <button onClick={resetGame} >Reset Game</button>
       <button onClick={() => console.log(board)} >Show Board Info</button>
-
     </div>
   )
 }
 
 export default App
+
