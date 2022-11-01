@@ -4,31 +4,48 @@ import { gamespots } from './utilities/gamespots'
 import { checkWinner } from './utilities/checkWinner'
 import { animate, flashWin, flashTop } from './utilities/animations'
 import Score from './components/indicators/Score'
-import logo from './images/logo.svg'
+import MainMenu from './components/menus/MainMenu'
+import InGameMenu from './components/menus/InGameMenu'
 
 function App() {
   const [turn, setTurn] = useState('player1')
   const [board, setBoard] = useState(gamespots)
-  const [winner, setWinner] = useState(false)
-
+  const [gameOver, setGameOver] = useState(false)
+  const [score, setScore] = useState({ player1: 0, player2: 0 })
+  const [gameStart, setGameStart] = useState(false)
 
   async function runTurn(spot) {
-    if (winner) return
+    //if the game has already been won, do not run the function
+    if (gameOver) return
+    //update the board with the new info
     const newBoard = await updateBoard(spot)
+    //drop the piece into the selected row
     animate(spot)
+    //run algorithm to check if there is a winner
     const winnerInfo = checkWinner(newBoard, spot)
+    //if checkWinner array at index 0 comes back true...
     if (winnerInfo[0]) {
-      setWinner(true)
+      setGameOver(true)
+      let winningPlayer = newBoard[spot].value
+      addToScore(winningPlayer)
       await highlightWin(newBoard, winnerInfo[1])
       flashWin()
     }
     updateTurn()
   }
 
+  //update player scores when there is a winner
+  function addToScore(winningPlayer) {
+    let newScore = { ...score, [winningPlayer]: score[winningPlayer] += 1 }
+    setScore(newScore)
+  }
+
+  //update player after each turn
   function updateTurn() {
     turn === 'player1' ? setTurn('player2') : setTurn('player1')
   }
 
+  //highlight the pieces on the board to show where the win is
   function highlightWin(board, spots) {
     const winBoard = board.map(each => {
       //for each position, check if it is in the winning array
@@ -43,6 +60,7 @@ function App() {
     return true
   }
 
+  //update the values across the board
   function updateBoard(spot) {
     const newBoard = board.map(each => {
       //if the position specified, return the new position with updated value
@@ -56,23 +74,26 @@ function App() {
     return newBoard
   }
 
+  //return to defaults
   function resetGame() {
     setBoard(gamespots)
     setTurn('player1')
-    setWinner(false)
+    setGameOver(false)
+    // setScore({ player1: 0, player2: 0 })
     flashTop()
   }
 
   return (
-    <div className="app">
-      <div id="menu-buttons">
-        <button className='btn-sm heading-xs'>Menu</button>
-        <img src={logo} alt="connect four logo" />
-        <button className='btn-sm heading-xs' onClick={resetGame} >Reset Game</button>
-      </div>
-      <Score score='55' player='Player 1' />
-      <Score score='43' player='Player 2' />
-      <GameBoard board={board} runTurn={runTurn} />
+    <div className='app'>
+      {!gameStart ?
+        <MainMenu setGameStart={setGameStart} /> :
+        <>
+          <InGameMenu board={board} resetGame={resetGame} />
+          <Score score={score.player1} player='Player 1' />
+          <Score score={score.player2} player='Player 2' />
+          <GameBoard board={board} runTurn={runTurn} />
+        </>
+      }
     </div>
   )
 }

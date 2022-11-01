@@ -21,7 +21,8 @@ function flashWin() {
 }
 
 function flashTop() {
-    gsap.fromTo('.top', {
+    let tl = gsap.timeline()
+    tl.fromTo('.top', {
         opacity: 0,
         backgroundColor: 'none'
     },
@@ -32,6 +33,7 @@ function flashTop() {
             yoyo: true,
             repeat: 3
         })
+    tl.to('.top', { opacity: 100, backgroundColor: 'none' })
 }
 
 export { animate, flashWin, flashTop }
