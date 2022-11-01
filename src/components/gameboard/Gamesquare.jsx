@@ -1,4 +1,4 @@
-export default function Gamesquare({ info, runTurn, board }) {
+export default function Gamesquare({ info, runTurn, board, player }) {
 
     const row5 = info.position + (7 * 5)
     const row4 = info.position + (7 * 4)
@@ -30,7 +30,7 @@ export default function Gamesquare({ info, runTurn, board }) {
     }
 
     return (
-        <div onClick={handleClick} className={info.position < 7 ? 'gamesquare top' : 'gamesquare'}>
+        <div onClick={handleClick} className={info.position > 6 ? 'gamesquare' : player === 'player1' ? 'gamesquare top redmarker' : 'gamesquare top yellowmarker'}>
             {info.value ?
                 <div className={`testpiece_${info.position} gamesquare ${info.value}`} >
                     {info.winner ? <div className='win'></div> : null}

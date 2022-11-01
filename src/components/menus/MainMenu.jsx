@@ -13,7 +13,6 @@ export default function MainMenu({ setGameStart }) {
         setTimeout(() => {
             flashTop()
         }, 300)
-
     }
 
     return (
@@ -23,7 +22,7 @@ export default function MainMenu({ setGameStart }) {
                 <div className="menu-container">
                     <img className="menu-logo" src={logo} alt='connect four logo' />
                     <PVP_Button startGame={startGame} />
-                    <Options_Button options='GAME RULES' operation={setShowRules} current={showRules} size='btn-lg' />
+                    <Options_Button options='GAME RULES' operation={setShowRules} size='btn-lg' />
                 </div>
                 :
                 <GameRules setShowRules={setShowRules} />}

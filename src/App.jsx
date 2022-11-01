@@ -17,14 +17,15 @@ function App() {
   const [pause, setPause] = useState(false)
   const [gameWinner, setGameWinner] = useState(null)
   const [gameCount, setGameCount] = useState(0)
-  const [clickCount, setClickCount] = useState(40)
+  const [clickCount, setClickCount] = useState(0)
+
+
 
   async function runTurn(spot) {
     //if the game has already been won, do not run the function
     if (gameOver) return
     //update click count to keep track of total spaces occupied on board
     setClickCount(clickCount + 1)
-    console.log(clickCount)
     //update the board with the new info
     const newBoard = await updateBoard(spot)
     //drop the piece into the selected row
@@ -132,10 +133,26 @@ function App() {
       {!gameStart ?
         <MainMenu setGameStart={setGameStart} /> :
         <>
-          <InGameMenu board={board} resetGame={resetGame} setPause={setPause} />
-          <Score score={score.player1} player='Player 1' pause={pause} />
-          <Score score={score.player2} player='Player 2' pause={pause} />
-          <GameBoard board={board} runTurn={runTurn} gameWinner={gameWinner} playAgain={playAgain} turn={turn} />
+          <InGameMenu
+            board={board}
+            resetGame={resetGame}
+            setPause={setPause}
+          />
+          <Score
+            score={score.player1}
+            player='Player 1'
+            pause={pause} />
+          <Score
+            score={score.player2}
+            player='Player 2'
+            pause={pause} />
+          <GameBoard
+            board={board}
+            runTurn={runTurn}
+            gameWinner={gameWinner}
+            playAgain={playAgain}
+            turn={turn}
+          />
         </>
       }
       {pause ? <PauseMenu setPause={setPause} pause={pause} quit={quitGame} reset={resetGame} /> : null}

@@ -39,6 +39,7 @@ export default function GameBoard({ board, turn, runTurn, gameWinner, playAgain 
                             info={each}
                             board={board}
                             runTurn={runTurn}
+                            player={turn}
                         />
                     )
                 })}
