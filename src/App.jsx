@@ -15,10 +15,16 @@ function App() {
   const [score, setScore] = useState({ player1: 0, player2: 0 })
   const [gameStart, setGameStart] = useState(false)
   const [pause, setPause] = useState(false)
+  const [gameWinner, setGameWinner] = useState(null)
+  const [gameCount, setGameCount] = useState(0)
+  const [clickCount, setClickCount] = useState(40)
 
   async function runTurn(spot) {
     //if the game has already been won, do not run the function
     if (gameOver) return
+    //update click count to keep track of total spaces occupied on board
+    setClickCount(clickCount + 1)
+    console.log(clickCount)
     //update the board with the new info
     const newBoard = await updateBoard(spot)
     //drop the piece into the selected row
@@ -29,11 +35,24 @@ function App() {
     if (winnerInfo[0]) {
       setGameOver(true)
       let winningPlayer = newBoard[spot].value
+      setGameWinner(winningPlayer)
       addToScore(winningPlayer)
       await highlightWin(newBoard, winnerInfo[1])
+      setGameCount(gameCount + 1)
       flashWin()
+      return
     }
     updateTurn()
+    if (clickCount >= 41) {
+      console.log('stalemate hit')
+      return stalemate()
+    }
+  }
+
+  function stalemate() {
+    setGameOver(true)
+    setGameWinner('stalemate')
+    setGameCount(gameCount + 1)
   }
 
   //update player scores when there is a winner
@@ -83,13 +102,29 @@ function App() {
     setGameOver(false)
     setScore({ player1: 0, player2: 0 })
     setPause(false)
+    setClickCount(0)
     flashTop()
+  }
+
+  function playAgain() {
+    setBoard(gamespots)
+    //need to set turn to alternate players starting
+    setGameOver(false)
+    setGameWinner(null)
+    setClickCount(0)
+    //players alternate starting the game. If game count is even, player 1 starts
+    if (gameCount % 2 === 0) {
+      setTurn('player1')
+    } else {
+      setTurn('player2')
+    }
   }
 
   function quitGame() {
     resetGame()
     setPause(false)
     setGameStart(false)
+    setClickCount(0)
   }
 
   return (
@@ -100,7 +135,7 @@ function App() {
           <InGameMenu board={board} resetGame={resetGame} setPause={setPause} />
           <Score score={score.player1} player='Player 1' pause={pause} />
           <Score score={score.player2} player='Player 2' pause={pause} />
-          <GameBoard board={board} runTurn={runTurn} />
+          <GameBoard board={board} runTurn={runTurn} gameWinner={gameWinner} playAgain={playAgain} turn={turn} />
         </>
       }
       {pause ? <PauseMenu setPause={setPause} pause={pause} quit={quitGame} reset={resetGame} /> : null}
