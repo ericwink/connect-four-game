@@ -6,6 +6,7 @@ import { animate, flashWin, flashTop } from './utilities/animations'
 import Score from './components/indicators/Score'
 import MainMenu from './components/menus/MainMenu'
 import InGameMenu from './components/menus/InGameMenu'
+import PauseMenu from './components/menus/PauseMenu'
 
 function App() {
   const [turn, setTurn] = useState('player1')
@@ -13,6 +14,7 @@ function App() {
   const [gameOver, setGameOver] = useState(false)
   const [score, setScore] = useState({ player1: 0, player2: 0 })
   const [gameStart, setGameStart] = useState(false)
+  const [pause, setPause] = useState(false)
 
   async function runTurn(spot) {
     //if the game has already been won, do not run the function
@@ -79,8 +81,15 @@ function App() {
     setBoard(gamespots)
     setTurn('player1')
     setGameOver(false)
-    // setScore({ player1: 0, player2: 0 })
+    setScore({ player1: 0, player2: 0 })
+    setPause(false)
     flashTop()
+  }
+
+  function quitGame() {
+    resetGame()
+    setPause(false)
+    setGameStart(false)
   }
 
   return (
@@ -88,12 +97,13 @@ function App() {
       {!gameStart ?
         <MainMenu setGameStart={setGameStart} /> :
         <>
-          <InGameMenu board={board} resetGame={resetGame} />
-          <Score score={score.player1} player='Player 1' />
-          <Score score={score.player2} player='Player 2' />
+          <InGameMenu board={board} resetGame={resetGame} setPause={setPause} />
+          <Score score={score.player1} player='Player 1' pause={pause} />
+          <Score score={score.player2} player='Player 2' pause={pause} />
           <GameBoard board={board} runTurn={runTurn} />
         </>
       }
+      {pause ? <PauseMenu setPause={setPause} pause={pause} quit={quitGame} reset={resetGame} /> : null}
     </div>
   )
 }

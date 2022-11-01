@@ -1,7 +1,13 @@
-export default function Options_Button({ options, operation }) {
+export default function Options_Button({ options, operation, current, size }) {
+
+    function handleClick() {
+        if (options === 'RESTART') return operation()
+        operation(!current)
+    }
+
     return (
         <>
-            <button onClick={() => operation(true)} className="btn btn-lg heading-m options">{options}
+            <button onClick={handleClick} className={`btn ${size} heading-m options`}>{options}
             </button>
         </>
     )
