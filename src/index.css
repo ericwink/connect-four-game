@@ -663,8 +663,13 @@ h2 {
   }
 }
 
-@media (max-height: 670px) {
+@media (max-height: 700px) {
   #menu-buttons {
-    margin-top: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  #score {
+    margin-bottom: 30px;
   }
 }
