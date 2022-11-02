@@ -57,7 +57,7 @@ html:focus-within {
 body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
-  font: var(--ff-body);
+  font-family: var(--ff-body);
   font-weight: var(--fw-bold);
   background-color: var(--clr-pale-purple);
   overflow: hidden;
