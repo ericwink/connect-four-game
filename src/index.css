@@ -166,6 +166,10 @@ select {
   background-size: cover;
 }
 
+.GAME.RULES {
+  justify-content: flex-start;
+}
+
 @media (hover) {
   button:hover {
     cursor: pointer;

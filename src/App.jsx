@@ -112,6 +112,7 @@ function App() {
     setScore({ player1: 0, player2: 0 })
     setPause(false)
     setClickCount(0)
+    setGameWinner(null)
     flashTop()
     setResetFlag(!resetFlag)
   }
@@ -132,9 +133,7 @@ function App() {
 
   function quitGame() {
     resetGame()
-    setPause(false)
     setGameStart(false)
-    setClickCount(0)
   }
 
   return (

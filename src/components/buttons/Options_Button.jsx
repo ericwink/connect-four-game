@@ -7,7 +7,7 @@ export default function Options_Button({ options, operation, current, size }) {
 
     return (
         <>
-            <button onClick={handleClick} className={`btn ${size} heading-m options`}>{options}
+            <button onClick={handleClick} className={`btn ${size} heading-m options ${options}`}>{options}
             </button>
         </>
     )
