@@ -265,7 +265,7 @@ h2 {
   top: 93%;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 99999999;
+  z-index: 99999;
 }
 
 .winner-container button {
@@ -366,7 +366,7 @@ h2 {
 
 #pause-menu {
   position: absolute;
-  z-index: 99999;
+  z-index: 99999999;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);

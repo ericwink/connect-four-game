@@ -50,6 +50,13 @@ function App() {
     }
   }
 
+  function outOfTime() {
+    setGameOver(true)
+    setGameWinner(turn === 'player1' ? 'player2' : 'player1')
+    addToScore(turn === 'player1' ? 'player2' : 'player1')
+    setGameCount(gameCount + 1)
+  }
+
   function stalemate() {
     setGameOver(true)
     setGameWinner('stalemate')
@@ -151,7 +158,9 @@ function App() {
             runTurn={runTurn}
             gameWinner={gameWinner}
             playAgain={playAgain}
+            outOfTime={outOfTime}
             turn={turn}
+            pause={pause}
           />
         </>
       }

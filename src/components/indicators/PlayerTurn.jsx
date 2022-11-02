@@ -1,21 +1,44 @@
 import { useEffect, useState } from "react"
 
-export default function PlayerTurn({ turn }) {
+//declare interval outside of functional component, otherwise it cuased duplicate render of the interval
+let interval = null
+export default function PlayerTurn({ turn, outOfTime, pause }) {
     const [seconds, setSeconds] = useState(30)
-    let interval = null
 
-    function startTimer() {
+    //whenever the pause menu is activated, start or stop the timer
+    useEffect(() => {
+        //if pause menu, clearInterval stops the timer
+        if (pause) clearInterval(interval)
+        //when pause is cleared (false) resume the timer by calling startTimer function
+        if (!pause) startTimer()
+    }, [pause])
+
+    //each time turn changes, update the timer
+    useEffect(() => {
+        //call stop timer wich stops current interval and resets seconds to 30
         stopTimer()
-        let start = 30
+        //call startTimer, beginning the interval
+        startTimer()
+        //cleanup so timer stops when component is unmounted
+        return () => stopTimer()
+    }, [turn])
+
+    //subtract 1 from the seconds variable each 1s
+    function startTimer() {
         interval = setInterval(() => {
-            // setSeconds(start)
-            console.log('start: ', start)
-            start--
+            setSeconds((seconds) => seconds === 0 ? endGame() : seconds - 1)
         }, 1000)
     }
 
+    //stop the current interval, reset seconds to 30
     function stopTimer() {
         clearInterval(interval)
+        setSeconds(30)
+    }
+
+    function endGame() {
+        stopTimer()
+        outOfTime()
     }
 
     return (
@@ -23,7 +46,6 @@ export default function PlayerTurn({ turn }) {
             {turn === 'player1' ? <p className="body-text">PLAYER 1's TURN</p> : <p className="body-text">PLAYER 2's TURN</p>}
 
             <p className="heading-lg">{seconds}s</p>
-            <button onClick={startTimer}>Start</button>
         </div>
     )
 }

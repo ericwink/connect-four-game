@@ -1,5 +1,4 @@
 export default function WINNER({ gameWinner, playAgain }) {
-    console.log(gameWinner)
 
     return (
         <div div className="winner-container" >
