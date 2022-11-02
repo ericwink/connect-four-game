@@ -7,7 +7,7 @@ import gameboardWhiteSm from '../../images/board-layer-white-small.svg'
 import WINNER from '../indicators/WINNER'
 import PlayerTurn from '../indicators/PlayerTurn'
 
-export default function GameBoard({ board, turn, runTurn, gameWinner, playAgain, outOfTime, pause }) {
+export default function GameBoard({ board, turn, runTurn, gameWinner, playAgain, outOfTime, pause, resetFlag }) {
     const [windowSize, setWindowSize] = useState(getWindowSize())
 
     function getWindowSize() {
@@ -46,7 +46,7 @@ export default function GameBoard({ board, turn, runTurn, gameWinner, playAgain,
             </div>
             <footer id='footer-color' className={!gameWinner ? 'null' : gameWinner === 'player1' ? 'player-1' : 'player-2'}></footer>
 
-            {gameWinner ? <WINNER gameWinner={gameWinner} playAgain={playAgain} /> : <PlayerTurn turn={turn} outOfTime={outOfTime} pause={pause} />}
+            {gameWinner ? <WINNER gameWinner={gameWinner} playAgain={playAgain} /> : <PlayerTurn turn={turn} outOfTime={outOfTime} pause={pause} resetFlag={resetFlag} />}
         </div>
     )
 }

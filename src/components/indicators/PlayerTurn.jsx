@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 
 //declare interval outside of functional component, otherwise it cuased duplicate render of the interval
 let interval = null
-export default function PlayerTurn({ turn, outOfTime, pause }) {
+export default function PlayerTurn({ turn, outOfTime, pause, resetFlag }) {
     const [seconds, setSeconds] = useState(30)
 
     //whenever the pause menu is activated, start or stop the timer
@@ -21,7 +21,7 @@ export default function PlayerTurn({ turn, outOfTime, pause }) {
         startTimer()
         //cleanup so timer stops when component is unmounted
         return () => stopTimer()
-    }, [turn])
+    }, [turn, resetFlag])
 
     //subtract 1 from the seconds variable each 1s
     function startTimer() {

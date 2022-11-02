@@ -18,6 +18,7 @@ function App() {
   const [gameWinner, setGameWinner] = useState(null)
   const [gameCount, setGameCount] = useState(0)
   const [clickCount, setClickCount] = useState(0)
+  const [resetFlag, setResetFlag] = useState(false)
 
 
 
@@ -112,6 +113,7 @@ function App() {
     setPause(false)
     setClickCount(0)
     flashTop()
+    setResetFlag(!resetFlag)
   }
 
   function playAgain() {
@@ -161,6 +163,7 @@ function App() {
             outOfTime={outOfTime}
             turn={turn}
             pause={pause}
+            resetFlag={resetFlag}
           />
         </>
       }
