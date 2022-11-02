@@ -12,6 +12,7 @@ export default function GameRules({ setShowRules }) {
                 <li>Players must alternate turns, and only one disc can be dropped in each turn. </li>
                 <li>The game ends when there is a 4-in-a-row or a stalemate.</li>
                 <li>The starter of the previous game goes second on the next game.</li>
+                <li><a href="https://www.ericwink.dev/" target="_blank">Visit my portfolio!</a> </li>
             </ul>
             <button onClick={() => setShowRules(false)} className='btn-round'></button>
         </div>
