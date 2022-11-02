@@ -20,8 +20,6 @@ function App() {
   const [clickCount, setClickCount] = useState(0)
   const [resetFlag, setResetFlag] = useState(false)
 
-
-
   async function runTurn(spot) {
     //if the game has already been won, do not run the function
     if (gameOver) return

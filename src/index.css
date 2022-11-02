@@ -662,3 +662,9 @@ h2 {
     }
   }
 }
+
+@media (max-height: 670px) {
+  #menu-buttons {
+    margin-top: 5px;
+  }
+}
