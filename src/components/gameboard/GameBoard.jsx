@@ -12,6 +12,14 @@ export default function GameBoard({ board, turn, runTurn, gameWinner, playAgain,
 
     function getWindowSize() {
         const innerWidth = window.innerWidth
+        const doc = document.documentElement
+        setTimeout(() => {
+            const scrollHeight = doc.scrollHeight
+            console.log(scrollHeight)
+            doc.style.setProperty('--doc-scrollheight', `${scrollHeight}px`)
+
+        }, 100)
+
         return innerWidth
     }
 
@@ -26,6 +34,8 @@ export default function GameBoard({ board, turn, runTurn, gameWinner, playAgain,
             window.removeEventListener('resize', handleWindowResize)
         }
     }, [])
+
+
 
     return (
         <div id="gameboard">
@@ -47,6 +57,7 @@ export default function GameBoard({ board, turn, runTurn, gameWinner, playAgain,
             <footer id='footer-color' className={!gameWinner ? 'null' : gameWinner === 'player1' ? 'player-1' : 'player-2'}></footer>
 
             {gameWinner ? <WINNER gameWinner={gameWinner} playAgain={playAgain} /> : <PlayerTurn turn={turn} outOfTime={outOfTime} pause={pause} resetFlag={resetFlag} />}
+
         </div>
     )
 }

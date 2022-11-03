@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap");
 
 :root {
+  --doc-scrollheight: 100%;
+
   /* colors */
   --clr-black: #000;
   --clr-dark-purple: #5c2dd5;
@@ -60,9 +62,7 @@ body {
   font-family: var(--ff-body);
   font-weight: var(--fw-bold);
   background-color: var(--clr-pale-purple);
-  overflow: hidden;
-
-  /* line-height: 1.5; */
+  overflow-x: hidden;
 }
 
 /* A elements that don't have a class get default styles */
@@ -512,7 +512,7 @@ h2 {
   left: 50%;
   transform: translateX(-50%);
   width: 100vw;
-  bottom: -1000px;
+  bottom: calc(581px - var(--doc-scrollheight));
   top: 95%;
   background-color: var(--clr-dark-purple);
   z-index: -99;
@@ -525,6 +525,21 @@ h2 {
 }
 #footer-color.player-2 {
   background-color: var(--clr-yellow);
+}
+
+@media (max-height: 700px) {
+  #menu-buttons {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  #score {
+    margin-bottom: 30px;
+  }
+
+  #footer-color {
+    bottom: calc(491px - var(--doc-scrollheight));
+  }
 }
 
 /* ----- tablet styles ----- */
@@ -603,8 +618,11 @@ h2 {
   .top {
     box-shadow: inset 1px 9px 3px 1px rgba(0, 0, 0, 0.5);
   }
-}
 
+  #footer-color {
+    bottom: calc(826px - var(--doc-scrollheight));
+  }
+}
 /* ---- desktop styles ----- */
 
 @media (min-width: 1100px) {
@@ -646,6 +664,11 @@ h2 {
     grid-column: 2/3;
     grid-row: 2/3;
   }
+
+  #footer-color {
+    bottom: calc(696px - var(--doc-scrollheight));
+  }
+
   @media (hover) {
     .top:hover::after {
       content: " ";
@@ -660,16 +683,5 @@ h2 {
     .top.yellowmarker:hover::after {
       background-image: url("./images/marker-yellow.svg");
     }
-  }
-}
-
-@media (max-height: 700px) {
-  #menu-buttons {
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
-
-  #score {
-    margin-bottom: 30px;
   }
 }
